@@ -31,6 +31,16 @@ defmodule PromotionTest do
         assert 2 == promotion
       end
     end
+    test "5 to 10 products should give 3% promotion" do
+      for n <- 6..10 do
+        promotion =
+          %{name: "Elixir course", price: 10.0}
+          |> List.duplicate(n)
+          |> Promotion.discount()
+
+        assert 3 == promotion
+      end
+    end
   end
 
 end
