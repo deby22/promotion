@@ -6,8 +6,8 @@ defmodule PromotionTest do
   # 1 product - 0%
   # 2 products - 1%
   # 3-5 products - 2%
-  # 5-10 products - 3 %
-  # 10 products and - 5%
+  # 6-10 products - 3 %
+  # 11 products and - 5%
 
   describe "default discount" do
     test "no product shouldn't accept promotion" do
@@ -39,6 +39,16 @@ defmodule PromotionTest do
           |> Promotion.discount()
 
         assert 3 == promotion
+      end
+    end
+    test "more than 10 products should give 5% promotion" do
+      for n <- 11..50 do
+        promotion =
+          %{name: "Elixir course", price: 10.0}
+          |> List.duplicate(n)
+          |> Promotion.discount()
+
+        assert 5 == promotion
       end
     end
   end
